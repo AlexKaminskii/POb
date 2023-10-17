@@ -1,0 +1,67 @@
+
+            
+            using System;
+            using System.Threading;
+
+            namespace lekcja
+            {
+        internal class Program
+        {
+            public static void Main(string[] args)
+            {
+                bool isCorrect = false;
+                do
+                {
+                    Console.Write("Podaj liczbę a : ");
+                    double a;
+                    while (!double.TryParse(Console.ReadLine(),out a) || a <= 0)
+                    {
+                        Console.WriteLine("\nPodaj poprawną liczbę!");
+                        Console.Write("Podaj liczbę a : ");
+                    }            
+                    Console.Write("Podaj liczbę b : ");
+                    double b;
+                    while (!double.TryParse(Console.ReadLine(),out b) || b <= 0)
+                    {
+                        Console.WriteLine("\nPodaj poprawną liczbę!");
+                        Console.Write("Podaj liczbę b : ");
+                    }            
+                    Console.Write("Podaj liczbę c : ");
+                    double c;
+                    while (!double.TryParse(Console.ReadLine(),out c) || c <= 0)
+                    {
+                        Console.WriteLine("\nPodaj poprawną liczbę!");
+                        Console.Write("Podaj liczbę c : ");
+                    }
+
+                    if (IsTriangle(a, b, c))
+                    {
+                        isCorrect = true;
+                        Console.OutputEncoding = System.Text.Encoding.Unicode;
+                        Console.WriteLine("Pole trójkąta o bokach {0}, {1}, {2} to {3:f4}cm\u00b2", a, b, c, heron(a,b,c));
+                        Console.OutputEncoding = System.Text.Encoding.Unicode;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nPodane długości boków nie tworzą trójkąta\n");
+                        Thread.Sleep(2000);
+                        Console.Clear();
+                    }
+                } while (!isCorrect);
+                
+                
+            }
+
+            static bool IsTriangle(double a, double b, double c) {
+                
+                return a + b > c && b + c > a && c + a > b;
+                
+            }
+
+            static double heron(double a, double b, double c)
+            {  
+                double p = (a + b + c) / 2;
+                return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+            }
+        }
+    }   
